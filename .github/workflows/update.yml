@@ -1,0 +1,92 @@
+name: Update formulae
+
+# Regenerates formulae from each project's latest GitHub release, installs and
+# tests the changed ones on Linux and macOS, and only then commits them.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Only update this package (default: all)"
+        required: false
+  repository_dispatch:
+    types: [update-formulae]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-formulae
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.diff.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.4.4"
+      - name: Generate
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: bun scripts/update-formulae.ts ${{ inputs.package || github.event.client_payload.package }}
+      - id: diff
+        name: Detect changes
+        run: |
+          changed=$(git status --porcelain --untracked-files=all -- Formula | awk '{print $2}' | grep '\.rb$' | sed -E 's|Formula/(.*)\.rb|\1|' | tr '\n' ' ' || true)
+          echo "changed=${changed% }" >> "$GITHUB_OUTPUT"
+          echo "Changed: ${changed:-none}"
+      - if: steps.diff.outputs.changed != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: formulae
+          path: Formula/*.rb
+
+  test:
+    needs: generate
+    if: needs.generate.outputs.changed != ''
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      # setup-homebrew checks out this repository as the tap itself.
+      - id: brew
+        uses: Homebrew/actions/setup-homebrew@main
+      - uses: actions/download-artifact@v8
+        with:
+          name: formulae
+          path: Formula
+      - name: Style, install and test
+        run: |
+          for name in ${{ needs.generate.outputs.changed }}; do
+            brew style "${{ steps.brew.outputs.tap-name }}/$name"
+            brew install "${{ steps.brew.outputs.tap-name }}/$name"
+            brew test "${{ steps.brew.outputs.tap-name }}/$name"
+          done
+
+  commit:
+    needs: [generate, test]
+    if: needs.generate.outputs.changed != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: formulae
+          path: Formula
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Formula
+          git diff --cached --quiet && exit 0
+          git commit -m "Update ${{ needs.generate.outputs.changed }}"
+          git push

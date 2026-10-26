@@ -1,0 +1,13 @@
+{
+  "$comment": "Formulae generated from GitHub releases by scripts/update-formulae.ts. See README.md for the release conventions.",
+  "packages": [
+    {
+      "name": "crosscheck",
+      "repo": "brielov/crosscheck",
+      "desc": "Have two coding agents review a plan against your repository",
+      "license": "MIT",
+      "dependencies": ["node"],
+      "binaries": ["crosscheck"]
+    }
+  ]
+}
