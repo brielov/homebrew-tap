@@ -8,25 +8,25 @@ class Crosscheck < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/brielov/crosscheck/releases/download/v0.3.2/crosscheck-0.3.2-darwin-arm64.tar.gz"
-      sha256 "d51e267aa9fedbc3038f855f06c69c8658435a85decb63fe69758e02fd207adb"
+      url "https://github.com/brielov/crosscheck/releases/download/v0.3.3/crosscheck-0.3.3-darwin-arm64.tar.gz"
+      sha256 "b9d86f90cb99bbc71f9cf056d85a48aeb17a4f27b419e83072d8c305f4d57ea4"
     end
 
     on_intel do
-      url "https://github.com/brielov/crosscheck/releases/download/v0.3.2/crosscheck-0.3.2-darwin-x64.tar.gz"
-      sha256 "3b20bac99d107ed5b94c1d2d16c9c564e6edb5869a155312382b6db48bddb166"
+      url "https://github.com/brielov/crosscheck/releases/download/v0.3.3/crosscheck-0.3.3-darwin-x64.tar.gz"
+      sha256 "8821f200070301f32651503c7c60ac030c9427ddc5f5435cb3e04d47d19accae"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/brielov/crosscheck/releases/download/v0.3.2/crosscheck-0.3.2-linux-arm64.tar.gz"
-      sha256 "f9bddac0cce6bacfaaea5dbac23dec4c7aa0f9088b709e41c40ab2c980de865f"
+      url "https://github.com/brielov/crosscheck/releases/download/v0.3.3/crosscheck-0.3.3-linux-arm64.tar.gz"
+      sha256 "7f32ad5502737fc1d499c9e1eacbb80fb22f3588e870ed8f3b639d85e720bb5c"
     end
 
     on_intel do
-      url "https://github.com/brielov/crosscheck/releases/download/v0.3.2/crosscheck-0.3.2-linux-x64.tar.gz"
-      sha256 "f807e1b53512d15d63863a19d803ae1f79eee31fb66a5d1a83ddd8be999cb200"
+      url "https://github.com/brielov/crosscheck/releases/download/v0.3.3/crosscheck-0.3.3-linux-x64.tar.gz"
+      sha256 "e6d9397443de4e1f6ecfbc989ca93289747a9e114d435d958ba128716835a1cf"
     end
   end
 
