@@ -6,15 +6,15 @@ class Secop < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/brielov/secop/releases/download/v0.1.0/secop-0.1.0-darwin-arm64.tar.gz"
-      sha256 "0531ea1d386781645ad864c96f07d8999c9e320f81f03aa4fc9eb27182f5d1d8"
+      url "https://github.com/brielov/secop/releases/download/v0.2.0/secop-0.2.0-darwin-arm64.tar.gz"
+      sha256 "6600631dca5ceb21dabe8804d91085f516f26f635324065be1d7096c1ffb46bd"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/brielov/secop/releases/download/v0.1.0/secop-0.1.0-linux-x64.tar.gz"
-      sha256 "66bdb1bf33f8f0bf432a6af1e04d451757eebc6c589552397dfcd7ab2038d898"
+      url "https://github.com/brielov/secop/releases/download/v0.2.0/secop-0.2.0-linux-x64.tar.gz"
+      sha256 "8d6b33915fd8f3f14e020655f0baee011668cafdd77e88f123e5274597bc8c81"
     end
   end
 
