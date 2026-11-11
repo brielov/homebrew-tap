@@ -18,6 +18,7 @@ brew install <formula>
 | Formula | Description |
 |---|---|
 | [`crosscheck`](https://github.com/brielov/crosscheck) | Have two coding agents review a plan against your repository |
+| [`secop`](https://github.com/brielov/secop) | Encrypt text or files with a passphrase to share them over insecure channels |
 
 ## How it works
 

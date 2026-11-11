@@ -8,6 +8,14 @@
       "license": "MIT",
       "dependencies": ["node"],
       "binaries": ["crosscheck"]
+    },
+    {
+      "name": "secop",
+      "repo": "brielov/secop",
+      "desc": "Encrypt text or files with a passphrase to share them over insecure channels",
+      "license": "MIT",
+      "dependencies": [],
+      "binaries": ["secop"]
     }
   ]
 }
